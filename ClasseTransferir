@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class Transferir {
+  
+public void transferirValores(Conta[]conta ){
+	
+	Scanner in = new Scanner(System.in);
+	String nomeConta,nomeConta2;
+	double valor;
+	int i=0;
+	
+
+	System.out.println("Transferir da conta?");
+	nomeConta = in.next();
+	System.out.println("Para Conta?");
+	nomeConta2 = in.next();
+	System.out.println("Valor:");
+	valor  = in.nextDouble();
+	
+	while( i <= conta.length){
+		if(conta[i].nome != nomeConta){
+			if(conta[i].saldo<valor){
+				System.out.println("Saldo insuficiente");
+			}else{
+				conta[i].saldo = conta[i].saldo - valor;
+			}
+		}
+		if(conta[i].nome != nomeConta2){
+			conta[i].saldo =conta[i].saldo + valor;
+		}
+		i++;
+	}
+	
+}
+	
+}
