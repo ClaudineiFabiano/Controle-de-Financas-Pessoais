@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Conta {
+  String nome;
+	Double saldo = 0.00;
+	Lancamento[] lanc= new Lancamento[5];
+	Lancamento lanc1;
+	public void limparConsole(){
+		for (int j = 0; j < 8; j++)
+		System.out.println();	
+	}
+
+	public void criarConta(){
+		Scanner in = new Scanner(System.in);
+		int sairLancamento = 0;
+		int i;
+
+			System.out.println("Nome:");
+			nome=in.next();
+			limparConsole();
+			i = 0;
+			System.out.println("Criar lançamento");
+			System.out.println("Digite 0(zero) para sair:");
+			sairLancamento=in.nextInt();
+			while(sairLancamento!=0 && i<=5){
+				lanc1 = new Lancamento();
+				lanc1.criarLancamento();
+				lanc[i]=lanc1;
+				//total dos lançamentos igual saldo
+				if (lanc[i].tipo == 1){
+					saldo = saldo + lanc1.valor;
+				}else{
+					saldo = saldo - lanc1.valor;
+				}
+					
+				i++;
+				System.out.println("Criar lançamento");
+				System.out.println("Digite 0(zero) para sair:");
+				sairLancamento=in.nextInt();
+			}
+			limparConsole();
+			System.out.println("Lançamentos criados com sucesso!");
+			
+		
+		limparConsole();
+		System.out.println("Lançamentos criados com sucesso!");
+	}
+
+}
