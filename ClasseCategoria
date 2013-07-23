@@ -1,0 +1,15 @@
+import java.util.Scanner;
+
+
+public class Categoria {
+  String nome;
+	String sub;
+	
+	public void criarCategoria(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Nome:");
+		nome=in.next();
+		System.out.println("Subcategoria:");
+		sub=in.next();
+	}
+}
