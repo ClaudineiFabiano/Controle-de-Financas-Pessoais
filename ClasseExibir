@@ -1,0 +1,143 @@
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class Exibir {
+  
+	private String nomeConta;
+	private Scanner in = new Scanner(System.in);
+	private DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+	
+	public void porData( Conta[] conta){
+		
+		int i = 0, j, h, l;
+		Date menor;
+		Lancamento[] ordem = new Lancamento[conta[i].lanc.length];
+		Lancamento lanc1, auxiliar;
+		
+		lanc1 = new Lancamento();
+		
+		System.out.println("Lançamentos ordenados por data");
+		System.out.println("Digite o nome da conta:");
+		nomeConta = in.next();
+		
+		while( i <= conta.length){
+			if(conta[i].nome != nomeConta){
+				ordem = new Lancamento[conta[i].lanc.length];
+				for (j=0;j<ordem.length;j++){
+					for( h = 0; h < conta[i].lanc.length; h++){
+						lanc1 = new Lancamento();
+						menor = conta[i].lanc[h].data;
+						lanc1 = conta[i].lanc[h];
+						for(l=0;l< conta[i].lanc.length;l++){
+							//busca a menor data
+							if(menor.before(conta[i].lanc[l].data)){
+								menor = conta[i].lanc[l].data;
+								auxiliar = new Lancamento();
+								//troca maior por menor
+								auxiliar = lanc1;
+								lanc1 = conta[i].lanc[l];
+								conta[i].lanc[l] = auxiliar;
+							}
+						}
+					}
+					ordem[j]=lanc1;
+				}
+				break;
+			}
+			i++;
+		}
+		
+		i = 0;
+		while( i <= ordem.length){
+			System.out.println(ordem[i]);
+		}
+	}
+	
+	public void porCategoria(Conta[] conta){
+		
+		int i = 0,j;
+		String nomeCategoria;
+		
+		System.out.println("Lançamentos por categoria");
+		System.out.println("Digite o nome da conta:");
+		nomeConta = in.next();
+		System.out.println("Digite o nome da categoria:");
+		nomeCategoria = in.next();
+		
+		while( i <= conta.length){
+			if(conta[i].nome != nomeConta){
+				for(j=0;j<conta[i].lanc.length;j++){
+					if(nomeCategoria==conta[i].lanc[j].categ.nome){
+						System.out.println(conta[i].lanc[j].categ);
+					}
+				}
+			}
+			i++;
+		}	
+	}
+	public void porPeriodo(Conta[] conta){
+		
+		Date dataInicial = null, dataFinal = null;
+		String converte;
+		int i = 0, j;
+		
+		System.out.println("Lançamentos por período");
+		System.out.println("Digite o nome da conta:");
+		nomeConta = in.next();
+		System.out.println("Digite a data inicial:");
+		converte = in.next();
+		try {
+			dataInicial = (Date)formatter.parse(converte);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Digite a data inicial:");
+		converte = in.next();
+		try {
+			dataFinal = (Date)formatter.parse(converte);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		while( i <= conta.length){
+			if(conta[i].nome != nomeConta){
+				for(j=0;j<conta[i].lanc.length;j++){
+					if(conta[i].lanc[j].data.after(dataInicial) && conta[i].lanc[j].data.before(dataFinal)){
+						System.out.println(conta[i].lanc[j]);
+					}
+					
+				}
+				break;
+			}
+			i++;
+		}
+	}
+	
+	public void porTipo(Conta[] conta){
+		
+		int tipo, i=0, j;
+		
+		System.out.println("Lançamentos por tipo");
+		System.out.println("Digite o nome da conta:");
+		nomeConta = in.next();
+		System.out.println("Tipo[0-Despesa,1-Receitas]:");
+		tipo = in.nextInt();
+		
+		while( i <= conta.length){
+			if(conta[i].nome != nomeConta){
+				for(j=0;j<conta[i].lanc.length;j++){
+					if(tipo == conta[i].lanc[j].tipo){
+						System.out.println(conta[i].lanc[j]);
+					}
+				}
+			}
+		}
+		
+	}
+	
+}
