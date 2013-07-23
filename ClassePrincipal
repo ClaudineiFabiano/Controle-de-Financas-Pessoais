@@ -1,0 +1,89 @@
+import java.util.Scanner;
+
+public class Principal {
+
+  /**
+	 * @param args
+	 */
+	public static void main(String[] args){
+		// TODO Auto-generated method stub
+		
+		//criar um objeto para receber os dados digitados pelo usuário
+		Scanner in = new Scanner(System.in); 
+		
+		int opcao = -1, opcao2 = -1, sairConta = 0, i=0;
+		Conta[] conta = new Conta[5];
+		Conta conta1;
+		Excluir excluir = new Excluir();
+		Transferir transferir = new Transferir();
+		Exibir exibir = new Exibir();
+		while (opcao!=0){
+			System.out.println("Sistema Controle de Finanças");
+			System.out.println("Opções:");
+			System.out.println("0 - Sair");
+			System.out.println("1 - Criar Conta");
+			System.out.println("2 - Excluir Conta");
+			System.out.println("3 - Fazer Transferências");
+			System.out.println("4 - Exibir Lançamentos");
+			System.out.print("Digite:");
+			opcao=in.nextInt();
+			switch(opcao){
+				case 1:
+					System.out.println("Criar conta");
+					System.out.println("Digite 0(zero) para sair:");
+					sairConta=in.nextInt();
+					while (sairConta != 0 && i<=5){
+						conta1=new Conta();
+						conta1.criarConta();
+						conta[i]=conta1;
+						i++;
+						System.out.println("Criar conta");
+						System.out.println("Digite 0(zero) para sair:");
+						sairConta=in.nextInt();
+					}
+					conta1=new Conta();
+					conta1.limparConsole();
+					System.out.println("Contas criadas com sucesso!");
+					
+				break;
+	
+				case 2:
+					excluir.excluirConta( conta );
+				break;
+				
+				case 3:
+					transferir.transferirValores(conta);
+				break;
+				
+				case 4:
+					while (opcao2!=0){
+						System.out.println("Exibir lançamentos");
+						System.out.println("Opções:");
+						System.out.println("0 - Sair");
+						System.out.println("1 - Por ordem de datas");
+						System.out.println("2 - Por Categoria");
+						System.out.println("3 - Por período");
+						System.out.println("4 - Por tipo");
+						System.out.print("Digite:");
+						opcao2=in.nextInt();
+						switch(opcao2){
+							case 1:
+								exibir.porData(conta);
+								break;
+							case 2:
+								exibir.porCategoria(conta);
+								break;
+							case 3:
+								exibir.porPeriodo(conta);
+								break;
+							case 4:
+								exibir.porTipo(conta);
+								break;									
+						}
+					}
+				break;
+			}
+		}
+	}
+
+}
