@@ -1,0 +1,30 @@
+import java.text.*;
+import java.util.*;
+
+public class Lancamento {
+  int tipo;
+	String converte;
+	Date data;
+	Double valor;
+	Categoria categ = new Categoria();
+	DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
+	
+	public void criarLancamento(){
+		Scanner in = new Scanner(System.in);
+		System.out.println("Tipo[0-Despesa,1-Receitas]:");
+		tipo=in.nextInt();
+		System.out.println("Data:");
+		converte = in.next();
+		try {
+			data = (Date)formatter.parse(converte);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Valor:");
+		valor=in.nextDouble();
+		System.out.println("Criar Categoria:");
+		categ.criarCategoria();
+	}
+	
+}
